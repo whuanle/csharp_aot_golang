@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		
+		<!--AOT 相关-->
+		<PublishAot>true</PublishAot>
+		<TrimMode>full</TrimMode>
+		<RunAOTCompilation>True</RunAOTCompilation>
+		<PublishTrimmed>true</PublishTrimmed>
+		<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
+		<PublishReadyToRunEmitSymbols>false</PublishReadyToRunEmitSymbols>
+		<DebuggerSupport>false</DebuggerSupport>
+		<EnableUnsafeUTF7Encoding>true</EnableUnsafeUTF7Encoding>
+		<InvariantGlobalization>true</InvariantGlobalization>
+		<HttpActivityPropagationSupport>false</HttpActivityPropagationSupport>
+		<MetadataUpdaterSupport>true</MetadataUpdaterSupport>
+		<UseSystemResourceKeys>true</UseSystemResourceKeys>
+		<IlcDisableReflection>true</IlcDisableReflection>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="Microsoft.DotNet.ILCompiler" Version="7.0.0-*" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <FrameworkAssemblies Remove="CsharpExport.dll" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <PrivateSdkAssemblies Remove="CsharpExport.dll" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <None Update="CsharpExport.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="main.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <FrameworkAssemblies Remove="main.dll" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <PrivateSdkAssemblies Remove="main.dll" />
+	</ItemGroup>
+</Project>
