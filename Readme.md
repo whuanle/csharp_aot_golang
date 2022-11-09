@@ -119,7 +119,7 @@ public class Program
     CsharpAot.pdb
 ```
 
-> 光有 `.exe` 即可运行，其他是调试符号文件等，不是必需的。
+> 光用 `.exe` 即可运行，其他是调试符号等文件，不是必需的。
 
 
 
@@ -133,9 +133,9 @@ public class Program
 
 ### C# 调用库函数
 
-这一部分的代码示例，是从笔者的一个开源项目中抽取出来的，这个项目可以获取一些系统资源，以及接入 prometheus 。
+这一部分的代码示例，是从笔者的一个开源项目中抽取出来的，这个项目封装了一些获取系统资源的接口，以及快速接入 Prometheus 监控。
 
-不过很久没有更新了，有没有动力更新，读者可以点击这里了解一下：
+不过很久没有更新了，最近没啥动力更新，读者可以点击这里了解一下这个项目：
 
 https://github.com/whuanle/CZGL.SystemInfo/tree/net6.0/src/CZGL.SystemInfo/Memory
 
@@ -145,7 +145,7 @@ https://github.com/whuanle/CZGL.SystemInfo/tree/net6.0/src/CZGL.SystemInfo/Memor
 
 
 
-本小节的示例是通过使用 `kernel32.dll` 去调用 Windows 的内核 API(Win32 API)，**检索有关系统当前使用物理内存和虚拟内存的信息**。
+本小节的示例是通过使用 `kernel32.dll` 去调用 Windows 的内核 API(Win32 API)，调用 `GlobalMemoryStatusEx` 函数 **检索有关系统当前使用物理内存和虚拟内存的信息**。
 
 使用到的 Win32 函数可参考：https://learn.microsoft.com/zh-cn/windows/win32/api/sysinfoapi/nf-sysinfoapi-globalmemorystatusex
 
@@ -161,7 +161,7 @@ https://github.com/whuanle/CZGL.SystemInfo/tree/net6.0/src/CZGL.SystemInfo/Memor
 
 
 
-在 .NET 7 中，出现了新的 `[LibraryImport]`。
+在 .NET 7 中，出现了新的操作方式 `[LibraryImport]`。
 
 文档是这样介绍的：
 
@@ -292,7 +292,7 @@ public class Program
         Console.WriteLine($"当前实际可用内存量：{result.ullAvailPhys / 1000 / 1000}MB");
         Console.ReadKey();
     }
-    /// <inheritdoc/>
+    
     /// <exception cref="Win32Exception"></exception>
     public static MemoryStatusExE GetValue()
     {
@@ -324,9 +324,11 @@ public class Program
 
 
 
-需要注意的是，裁剪是没有那么简单的，里面配置繁多，有一些选项不能同时使用，可能会让开发者用得很迷茫。
+需要注意的是，裁剪是没有那么简单的，里面配置繁多，有一些选项不能同时使用，每个选项又能带来什么样的效果，这些选项可能会让开发者用得很迷茫。
 
-经过笔者的大量测试，笔者选用了以下一些配置，能够达到很好的裁剪效果。
+
+
+经过笔者的大量测试，笔者选用了以下一些配置，能够达到很好的裁剪效果，供读者测试。
 
 
 
@@ -380,6 +382,8 @@ public class Program
 这一步可以从时总的博客中学习更多：[https://www.cnblogs.com/InCerry/p/CSharp-Dll-Export.html](https://www.cnblogs.com/InCerry/p/CSharp-Dll-Export.html)
 
 > PS：时总真的太强了。
+>
+> <img src="images/image-20221109235629370.png" alt="image-20221109235629370" style="zoom:50%;" />
 
 
 
@@ -519,6 +523,8 @@ namespace CsharpExport
 在 Visual Studio 里启动 Debug 调试：
 
 ![image-20221109205726963](images/image-20221109205726963.png)
+
+
 
 可以看到，是正常运行的。
 

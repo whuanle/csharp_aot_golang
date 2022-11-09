@@ -13,7 +13,7 @@ public class Program
         Console.WriteLine($"1 + 2 = {result}");
         Console.ReadKey();
     }
-    /// <inheritdoc/>
+
     /// <exception cref="Win32Exception"></exception>
     public static MemoryStatusExE GetValue()
     {
